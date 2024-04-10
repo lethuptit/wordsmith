@@ -9,9 +9,9 @@ services:
 
   api:
     build: api
-    image: dockersamples/wordsmith-api
+    image: dockersamples-test/wordsmith-test-api
     deploy:
-      replicas: 5ls -ll
+      replicas: 5
 
   web:
     build: web
