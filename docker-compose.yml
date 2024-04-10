@@ -5,13 +5,13 @@ services:
   db:
     image: postgres:10.0-alpine
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/
+      - ./db/words.sql:/docker-entrypoint-initdb.d/words.sql
 
   api:
     build: api
     image: dockersamples/wordsmith-api
     deploy:
-      replicas: 5
+      replicas: 5ls -ll
 
   web:
     build: web

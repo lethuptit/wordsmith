@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+//import java.io;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.sql.*;
@@ -11,8 +12,9 @@ import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        System.out.println("Testing program....");
         Class.forName("org.postgresql.Driver");
-
+        
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/noun", handler(() -> randomWord("nouns")));
         server.createContext("/verb", handler(() -> randomWord("verbs")));
@@ -22,14 +24,20 @@ public class Main {
 
     private static String randomWord(String table) {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://db:5432/postgres", "postgres", "")) {
+            if(connection==null)
+            {
+                System.out.println("Cannot connect to db.");
+                return "out";
+            }
             try (Statement statement = connection.createStatement()) {
-                try (ResultSet set = statement.executeQuery("SELECT word FROM " + table + " ORDER BY random() LIMIT 1")) {
+                try (ResultSet set = statement.executeQuery("SELECT * FROM " + table + " ORDER BY random() LIMIT 1")) {
                     while (set.next()) {
-                        return set.getString(1);
+                        return table + ":" + set.getString(1);
                     }
                 }
             }
         } catch (SQLException e) {
+            System.out.println("Exception on randomWord.");
             e.printStackTrace();
         }
 
