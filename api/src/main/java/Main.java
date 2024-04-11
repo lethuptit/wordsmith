@@ -23,7 +23,7 @@ public class Main {
     }
 
     private static String randomWord(String table) {
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://db:5432/postgres", "postgres", "")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://db1:5432/postgres", "postgres", "")) {
             if(connection==null)
             {
                 System.out.println("Cannot connect to db.");

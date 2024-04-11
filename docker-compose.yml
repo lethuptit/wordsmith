@@ -2,19 +2,19 @@ version: '3.9'
 # we'll keep the version for now to work in Compose and Swarm
 
 services:
-  db:
+  db1:
     image: postgres:10.0-alpine
     volumes:
-      - ./db/words.sql:/docker-entrypoint-initdb.d/words.sql
+      - ./db/myquery.sql:/docker-entrypoint-initdb.d/initdb.sql
 
   api:
     build: api
-    image: dockersamples-test/wordsmith-test-api
+    image: dockersamples/wordsmith-test-api
     deploy:
       replicas: 5
 
   web:
     build: web
-    image: dockersamples/wordsmith-web
+    image: dockersamples/wordsmith-test-web
     ports:
      - "8080:80"
