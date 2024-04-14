@@ -7,14 +7,16 @@ services:
     volumes:
       - ./db/myquery.sql:/docker-entrypoint-initdb.d/initdb.sql
 
-  api:
-    build: api
-    image: dockersamples/wordsmith-test-api
-    deploy:
-      replicas: 5
+  #api:
+  #  build: api
+  #  #image: dockersamples/wordsmith-test-api
+  #  image: 654654452340.dkr.ecr.us-east-1.amazonaws.com/wordsmith-test-api
+  #  deploy:
+  #    replicas: 5
 
   web:
     build: web
-    image: dockersamples/wordsmith-test-web
+    #image: dockersamples/wordsmith-test-web
+    image: 654654452340.dkr.ecr.us-east-1.amazonaws.com/wordsmith
     ports:
      - "8080:80"
